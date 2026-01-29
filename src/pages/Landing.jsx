@@ -32,7 +32,7 @@ const Landing = () => {
             <span className="font-bold">Protect</span> Your body.<br></br>
             <span className="font-bold">Elevate</span> Your Performance
           </h1>
-          <p className="my-8 text-xl sm:text-2xl text-center lg:text-lef">
+          <p className="my-8 text-xl sm:text-2xl text-center lg:text-left">
             Join us in protecting your body and elevating your performance
             through prevention and strengthening.
           </p>
