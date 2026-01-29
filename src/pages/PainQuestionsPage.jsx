@@ -62,7 +62,7 @@ const PainQuestionsPage = () => {
 
       <form onSubmit={(e) => e.preventDefault()}>
         {questions.map((q, index) => (
-          <div className="font-bold">
+          <div className="font-bold text-center">
             {q}
           </div>
         ))}
