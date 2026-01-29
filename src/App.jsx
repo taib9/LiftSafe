@@ -8,7 +8,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Landing />} />
       <Route path="/supabasetest" element={<SupabaseTest />} />
-      <Route path="/painselection" element={<PainSelection />} />
+      <Route path="/pain-selection" element={<PainSelection />} />
     </Routes>
   );
 }

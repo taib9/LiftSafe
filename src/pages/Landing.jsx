@@ -5,6 +5,7 @@ import React from "react";
 import heroImg from "../assets/Landing-Hero.png";
 import navLogo from "../assets/LiftSafe-Logo.png";
 import LandingCard from "../components/LandingCard";
+import { Link } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegFlag } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
@@ -36,12 +37,12 @@ const Landing = () => {
             Join us in protecting your body and elevating your performance
             through prevention and strengthening.
           </p>
-          <a
-            href=""
+          <Link
+            to="/pain-selection"
             className="bg-teal font-bold tracking-wider text-white px-12 py-2 items-center flex rounded-full"
           >
             Get Started
-          </a>
+          </Link>
         </div>
         <img
           src={heroImg}
