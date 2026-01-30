@@ -54,7 +54,7 @@ const Results = () => {
         ))}
       </div>
       <div className='container mt-16 max-w-2xl mx-auto'>
-        <h3 className='text-black font-bold text-xl text-center'>Recmmended Actions</h3>
+        <h3 className='text-black font-bold text-xl text-center'>Recommended Actions</h3>
         {actionCard.map((actioncard) => (
           <ActionCard key={actioncard.id} title={actioncard.title} description={actioncard.description}/>
         ))}
