@@ -2,42 +2,46 @@ import { useState } from "react";
 import { useParams, useNavigate} from "react-router-dom";
 import { Slider } from "radix-ui";
 import { FaCalendarAlt } from "react-icons/fa";
+import { LuMoon } from "react-icons/lu";
+import { IoWarningOutline } from "react-icons/io5";
+import { RiArrowUpDoubleFill } from "react-icons/ri";
+import { GiLeg, GiPelvisBone } from "react-icons/gi";
 
 const questionsByBodyPart = {
   shoulder: [
     { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt },
     { question: "Pressing exercises per week", min: 0, max: 20, minLabel: "None", maxLabel: "20+" },
-    { question: "Recent increase in pressing volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%" },
-    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent" },
-    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe" },
+    { question: "Recent increase in pressing volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%", icon: RiArrowUpDoubleFill },
+    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent", icon: LuMoon },
+    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe", icon: IoWarningOutline },
   ],
   elbow: [
-    { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt  },
+    { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt },
     { question: "Curl exercises per week", min: 0, max: 20, minLabel: "None", maxLabel: "20+" },
-    { question: "Recent increase in curling volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%" },
-    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent" },
-    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe" },
+    { question: "Recent increase in curling volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%", icon: RiArrowUpDoubleFill },
+    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent", icon: LuMoon },
+    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe", icon: IoWarningOutline },
   ],
   "lower-back": [
-    { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt  },
+    { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt },
     { question: "Deadlift/squat volume per week", min: 0, max: 30, minLabel: "None", maxLabel: "30+" },
-    { question: "Recent increase in weight/volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%" },
-    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent" },
-    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe" },
+    { question: "Recent increase in weight/volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%", icon: RiArrowUpDoubleFill },
+    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent", icon: LuMoon },
+    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe", icon: IoWarningOutline },
   ],
   knee: [
-    { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt  },
-    { question: "Leg exercises per week", min: 0, max: 20, minLabel: "None", maxLabel: "20+" },
-    { question: "Recent increase in leg volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%" },
-    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent" },
-    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe" },
+    { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt },
+    { question: "Leg exercises per week", min: 0, max: 20, minLabel: "None", maxLabel: "20+", icon: GiLeg },
+    { question: "Recent increase in leg volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%", icon: RiArrowUpDoubleFill },
+    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent", icon: LuMoon },
+    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe", icon: IoWarningOutline },
   ],
   hip: [
-    { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt  },
-    { question: "Hip/hinge exercises per week", min: 0, max: 20, minLabel: "None", maxLabel: "20+" },
-    { question: "Recent increase in hip/hinge volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%" },
-    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent" },
-    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe" },
+    { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt },
+    { question: "Hip/hinge exercises per week", min: 0, max: 20, minLabel: "None", maxLabel: "20+", icon: GiPelvisBone },
+    { question: "Recent increase in hip/hinge volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%", icon: RiArrowUpDoubleFill },
+    { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent", icon: LuMoon },
+    { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe", icon: IoWarningOutline },
   ],
 };
 
