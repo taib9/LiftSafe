@@ -1,44 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PainSelectionCard from "../components/PainSelectionCard";
 import { GiKneeCap } from "react-icons/gi";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
-const cards = [
-  {
-    id: "knees",
-    title: "Knees",
-    description: "Issues with squats, lunges, leg press, or running",
-    Icon: GiKneeCap,
-  },
-  {
-    id: "shoulders",
-    title: "Shoulders",
-    description: "Issues with pressing movements",
-    Icon: GiKneeCap,
-  },
-  {
-    id: "lower-back",
-    title: "Lower Back",
-    description: "Issues with lifting from below",
-    Icon: GiKneeCap,
-  },
-  {
-    id: "hips",
-    title: "Hips",
-    description: "Issues with squats",
-    Icon: GiKneeCap,
-  },
-  {
-    id: "elbow",
-    title: "Elbow",
-    description: "Issue with elbows",
-    Icon: GiKneeCap,
-  },
-];
+import { supabase } from "../lib/supabaseClient";
 
 const PainSelection = () => {
+  const [painAreas, setPainAreas] = useState([]);
   const [activeCards, setActiveCards] = useState([]);
+
+  useEffect(() => {
+    const fetchPainAreas = async () => {
+      const { data, error } = await supabase
+      .from('pain_area_id')
+      .select("*")
+
+      if (error) {
+        console.log("Supabase error:", error)
+      } else {
+        setPainAreas(data)
+      }
+    };
+    fetchPainAreas()
+  }, [])
 
   const toggleCard = (id) => {
     setActiveCards((prev) =>
@@ -64,14 +48,14 @@ const PainSelection = () => {
           Complete a short questionaire to identify your injury risk
         </h2>
         <div className="container mx-auto max-w-5xl mt-8 gap-4 flex flex-col">
-          {cards.map((card) => (
+          {painAreas.map((area) => (
             <PainSelectionCard
-              key={card.id}
-              title={card.title}
-              description={card.description}
-              Icon={card.Icon}
-              isActive={activeCards.includes(card.id)}
-              onToggle={() => toggleCard(card.id)}
+              key={area.id}
+              title={area.name}
+              description={area.description}
+              iconUrl={area.icon}
+              isActive={activeCards.includes(area.id)}
+              onToggle={() => toggleCard(area.id)}
             />
           ))}
         </div>
