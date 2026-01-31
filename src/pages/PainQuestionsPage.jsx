@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useParams, useNavigate} from "react-router-dom";
 import { Slider } from "radix-ui";
 import { FaCalendarAlt } from "react-icons/fa";
-import { LuMoon } from "react-icons/lu";
+import { LuMoon, LuBicepsFlexed } from "react-icons/lu";
 import { IoWarningOutline } from "react-icons/io5";
 import { RiArrowUpDoubleFill } from "react-icons/ri";
 import { GiLeg, GiPelvisBone } from "react-icons/gi";
@@ -17,7 +17,7 @@ const questionsByBodyPart = {
   ],
   elbow: [
     { question: "Weekly training sessions", min: 0, max: 10, minLabel: "0 days", maxLabel: "10 days", icon: FaCalendarAlt },
-    { question: "Curl exercises per week", min: 0, max: 20, minLabel: "None", maxLabel: "20+" },
+    { question: "Curl exercises per week", min: 0, max: 20, minLabel: "None", maxLabel: "20+", icon: LuBicepsFlexed },
     { question: "Recent increase in curling volume", min: 0, max: 100, minLabel: "0%", maxLabel: "100%", icon: RiArrowUpDoubleFill },
     { question: "Sleep quality (last 7 days)", min: 0, max: 10, minLabel: "Poor", maxLabel: "Excellent", icon: LuMoon },
     { question: "Current pain level", min: 0, max: 10, minLabel: "None", maxLabel: "Severe", icon: IoWarningOutline },
@@ -61,15 +61,26 @@ const PainQuestionsPage = () => {
     setAnswers(newAnswers);
   };
 
+  const handleSubmit = () => {
+    navigate("/results"), {
+      state: {
+        answers,
+        painAreaId,
+        questions
+      }
+    }
+  }
+
   return (
     <div className="relative min-h-screen">
 
       {/* navbar */}
-      <div className="sticky top-0 z-20 bg-white">
-        <div className="max-w-xl mx-auto px-4 h-14 flex justify-between">
-          <button onClick={() => navigate(-1)} className="font-bold"> ← Back </button>
-          <button onClick={() => console.log("Next")} className="font-bold"> Next → </button>
-        </div>
+      <div className="flex">
+        <button 
+          onClick={() => navigate(-1)} 
+          className="font-bold tracking-wider text-black pt-2 items-center flex pl-4 w-auto">
+          ← Back 
+        </button>
       </div>
 
       <div className="text-center"><h1 className="text-center font-bold text-white capitalize rounded-xl bg-teal inline-block px-3 py-.9">{painAreaId}</h1></div>
@@ -102,7 +113,7 @@ const PainQuestionsPage = () => {
               </Slider.Track>
               <Slider.Thumb className="relative block w-5 h-5 bg-teal border-gray-400 rounded-full shadow">
                 {answers[index] !== null && (
-                  <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-teal text-white px-2 py-1 rounded text-xs whitespace-nowrap">
+                  <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-teal text-white px-2 py-1 rounded text-xs whitespace-nowrap">
                     {answers[index]}
                   </span>
                 )}
@@ -113,7 +124,7 @@ const PainQuestionsPage = () => {
           </div>
         ))}
       </div>
-        <button className="font-bold absolute right-6 bottom-6 whitespace-nowrap rounded-xl bg-teal inline-block px-6 py-1 text-white">Get My Results →</button>
+        <button onClick={handleSubmit} className="font-bold absolute right-6 bottom-6 whitespace-nowrap rounded-xl bg-teal inline-block px-6 py-1 text-white cursor-pointer">Get My Results →</button>
     </div>
   );
 };
