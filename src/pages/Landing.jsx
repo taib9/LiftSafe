@@ -5,6 +5,7 @@ import React from "react";
 import heroImg from "../assets/Landing-Hero.png";
 import navLogo from "../assets/LiftSafe-Logo.png";
 import LandingCard from "../components/LandingCard";
+import { Link } from "react-router-dom";
 import { FaRegHeart } from "react-icons/fa";
 import { FaRegFlag } from "react-icons/fa";
 import { FaArrowUp } from "react-icons/fa";
@@ -32,16 +33,16 @@ const Landing = () => {
             <span className="font-bold">Protect</span> Your body.<br></br>
             <span className="font-bold">Elevate</span> Your Performance
           </h1>
-          <p className="my-8 text-xl sm:text-2xl text-center lg:text-lef">
+          <p className="my-8 text-xl sm:text-2xl text-center lg:text-left text-balance">
             Join us in protecting your body and elevating your performance
             through prevention and strengthening.
           </p>
-          <a
-            href=""
+          <Link
+            to="/pain-selection"
             className="bg-teal font-bold tracking-wider text-white px-12 py-2 items-center flex rounded-full"
           >
             Get Started
-          </a>
+          </Link>
         </div>
         <img
           src={heroImg}
@@ -49,20 +50,20 @@ const Landing = () => {
         />
       </div>
       <div className="bg-teal pb-8">
-        <div className="container px-4 mx-auto mt-16 flex flex-col gap-8 py-16 lg:py-0 lg:mt-[8rem] lg:flex-row">
+        <div className="container px-4 mx-auto mt-16 flex flex-col gap-8 py-16 lg:py-0 items-stretch lg:mt-[8rem] lg:grid lg:grid-cols-3 ">
           <LandingCard
             title="Pain Selection"
             description="Select which body parts are troubling for you. This will help tailor the app to work best for you."
             Icon={FaRegHeart}
           />
           <LandingCard
-            title="Smart Plan"
-            description="Get a recovery plan built around your training volume, sleep, and soreness."
+            title="Risk Assessment"
+            description="Take a quick assessment to gauge what can be possible risks for you in your workouts."
             Icon={FaRegFlag}
           />
           <LandingCard
-            title="Track Progress"
-            description="See improvements over time and adjust your plan as your body adapts."
+            title="Prevention & Strengthening"
+            description="View a catalog of tips and exercises to prevent injuries and strengthen under compensated body parts."
             Icon={FaArrowUp}
           />
         </div>
