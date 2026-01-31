@@ -27,6 +27,9 @@ const PainSelection = () => {
     setActiveCard((prev)  => (prev === id ? null : id))
   };
 
+  // selected component name for link
+  const selectedArea = painAreas.find(area => area.id === activeCard);
+
   return (
     <div>
       <div className="flex">
@@ -57,6 +60,15 @@ const PainSelection = () => {
           ))}
         </div>
       </div>
+
+      {activeCard !== null && selectedArea && (
+        <div className="sticky bottom-6 mr-6 flex justify-end">
+          <Link to={`/questions/${selectedArea.name.toLowerCase().replace(/\s+/g, '-')}`}
+          className="font-bold left-auto bottom-6 whitespace-nowrap rounded-xl bg-teal inline-block px-6 py-1 text-white cursor-pointer">
+          Next →
+          </Link>
+        </div>
+      )}
     </div>
   );
 };
