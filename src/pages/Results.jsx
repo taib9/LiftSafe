@@ -4,6 +4,7 @@ import KeyFactorCard from "../components/KeyFactorCard";
 import ActionCard from "../components/ActionCard";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
+import RiskLevel from '../components/RiskLevel'
 
 const Results = () => {
   const location = useLocation();
@@ -91,6 +92,7 @@ const Results = () => {
     });
   }
 
+  
   useEffect(() => {
     const fetchActions = async () => {
       const { data, error } = await supabase
@@ -124,12 +126,16 @@ const Results = () => {
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex justify-between items-center p-3">
         <Link
           to="/"
           className="font-bold tracking-wider text-black pt-2 items-center flex pl-4 w-auto"
         >
           ← Back
+        </Link>
+        <Link
+        to="/">
+        <h2 className='text-white bg-teal font-bold px-4 py-2 rounded-full'>Start Over →</h2>
         </Link>
       </div>
       <div className="container mx-auto mt-4 flex flex-col items-center">
@@ -139,6 +145,9 @@ const Results = () => {
         <h1 className="text-2xl lg:text-[2rem] text-teal text-center font-bold">
           Your Recovery Assessment
         </h1>
+      </div>
+      <div className='container mx-auto flex flex-col items-center mt-12'>
+        <RiskLevel riskLevel={riskLevel}/>
       </div>
       <div className="container mt-16 max-w-2xl mx-auto">
         <h3 className="text-black font-bold text-xl text-center">
@@ -156,14 +165,20 @@ const Results = () => {
         <h3 className="text-black font-bold text-xl text-center">
           Recommended Actions
         </h3>
-        {actions.map((action) => (
+        {actions.map((action, index) => (
           <ActionCard
             key={action.id}
             title={action.recommendation_type}
             description={action.tip}
             riskLevel={action.risk_level}
+            className={index === 0 ? "bg-[#CEDADB] text-white border-1 border-teal" : "bg-gray-100 text-black"}
           />
         ))}
+      </div>
+       <div className='container mt-12 mx-auto max-w-2xl mb-12'>
+      <div className='bg-lighter-gray p-4 rounded-lg mt-4'>
+      <p className='text-black text-sm font-sm'>Disclaimer: This tool provides educational guidance only and is not a substitute for professional medical advice. If you experience persistent or severe pain, please consult a qualified healthcare provider or physiotherapist.</p>
+    </div>
       </div>
     </div>
   );
