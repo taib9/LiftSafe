@@ -62,7 +62,7 @@ const Landing = () => {
           />
           <LandingCard
             title="Prevention & Strengthening"
-            description="View a catalog of tips and exercises to prevent injuries and strengthen under compensated body parts."
+            description="View a catalog of tips to prevent injuries and strengthen under compensated body parts."
             Icon={FaArrowUp}
           />
         </div>
