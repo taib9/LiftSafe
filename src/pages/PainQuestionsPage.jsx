@@ -3,10 +3,12 @@ import { useParams, useNavigate} from "react-router-dom";
 import * as Slider from "@radix-ui/react-slider";
 import { FaCalendarAlt } from "react-icons/fa";
 import { LuMoon,LuBicepsFlexed } from "react-icons/lu";
-import { IoWarningOutline } from "react-icons/io5";
+import { IoWarningOutline, IoBarbell  } from "react-icons/io5";
 import { RiArrowUpDoubleFill } from "react-icons/ri";
-import { GiLeg, GiPelvisBone } from "react-icons/gi";
+import { GiLeg, GiPelvisBone, GiBackPain } from "react-icons/gi";
 import { supabase } from "../lib/supabaseClient";
+import { IdCardIcon } from "lucide-react";
+
 
 const iconMap = {
   FaCalendarAlt,
@@ -16,6 +18,8 @@ const iconMap = {
   RiArrowUpDoubleFill,
   GiLeg,
   GiPelvisBone,
+  GiBackPain,
+  IoBarbell 
 };
 
 const PainQuestionsPage = () => {
@@ -24,6 +28,7 @@ const PainQuestionsPage = () => {
 
   const [questions, setQuestions] = useState([]);
   const [answers, setAnswers] = useState([]);
+  const [painAreaDbId, setPainAreaDbId] = useState(null);
 
   // supabase fetching
   useEffect(() => {
@@ -50,7 +55,8 @@ const PainQuestionsPage = () => {
 
         setQuestions(questionsWithIcons);
         // initialize answers array with null
-        setAnswers(new Array(questionsWithIcons.length).fill(null));
+        setAnswers(questionsWithIcons.map(q => Math.floor((q.min + q.max) / 2)));
+        setPainAreaDbId(questionsWithIcons[0]?.pain_area_id ?? null);
       } catch (err) {
         console.error("Error fetching questions:", err);
       }
@@ -70,9 +76,8 @@ const PainQuestionsPage = () => {
   const handleSubmit = () => {    
     navigate('/results', { 
       state: { 
-        answers, 
-        painAreaId,
-        questions 
+        answers,
+        painAreaDbId
       } 
     });
   };
@@ -113,6 +118,7 @@ const PainQuestionsPage = () => {
                 min={item.min}
                 max={item.max}
                 step={1}
+                defaultValue={item.max/2}
                 value={[answers[index] ?? item.min]}
                 onValueChange={(val) => handleChange(index, val[0])}
                 aria-label={item.question}
@@ -137,7 +143,7 @@ const PainQuestionsPage = () => {
           );
         })}
       </div>
-      <button onClick={handleSubmit} className="font-bold absolute right-6 bottom-6 whitespace-nowrap rounded-xl bg-teal inline-block px-6 py-1 text-white cursor-pointer">Get My Results →</button>
+      <div className="sticky bottom-6 mr-6 flex justify-end"><button onClick={handleSubmit} className="font-bold right-6 bottom-6 whitespace-nowrap rounded-xl bg-teal inline-block px-6 py-1 text-white cursor-pointer">Get My Results →</button></div>
     </div>
   );
 };

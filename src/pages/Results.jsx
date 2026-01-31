@@ -1,17 +1,22 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import KeyFactorCard from "../components/KeyFactorCard";
 import ActionCard from "../components/ActionCard";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 
-const sleep = 6; // 0 - 10
-const pain = 4; // 0 - 10
-const volume = 5; // 0 - 100%
-const frequency = 7; // 0 - 7
-const area = "00cf7f1c-a043-4d60-b3db-8418e8f3df4c";
-
 const Results = () => {
+  const location = useLocation();
+  const { answers, painAreaDbId } = location.state || {};
+
+  console.log("Received data:", { answers, painAreaDbId });
+
+  const sleep = answers[3]; // 0 - 10
+  const pain = answers[4]; // 0 - 10
+  const volume = answers[2]; // 0 - 100%
+  const frequency = answers[0]; // 0 - 7
+  const area = painAreaDbId;
+
   const [actions, setActions] = useState([]);
   const [areaName, setAreaName] = useState("");
 
@@ -49,13 +54,13 @@ const Results = () => {
     });
   }
   // Volume
-  if (volume >= 7) {
+  if (volume >= 70) {
     riskScore += 25;
     keyFactors.push({
       label: "High volume increase",
       detail: `Training load increased significantly`,
     });
-  } else if (volume >= 4) {
+  } else if (volume >= 40) {
     riskScore += 10;
   }
 
