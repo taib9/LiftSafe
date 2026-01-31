@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import navLogo from "../assets/LiftSafe-Logo.png";
 import {
   FaEnvelope,
@@ -7,8 +7,10 @@ import {
   FaEye,
   FaEyeSlash,
 } from "react-icons/fa";
+import { supabase } from "../lib/supabaseClient";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -16,6 +18,8 @@ const SignUp = () => {
   });
 
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -25,14 +29,36 @@ const SignUp = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setError("");
+    setLoading(true);
+
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (error) {
+        setError(error.message);
+        setLoading(false);
+        return;
+      }
+      
+      // redirect to pain selection
+      navigate("/pain-selection");
+      
+    } catch (err) {
+      setError("An unexpected error occurred");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-
       <div className="flex min-h-[calc(100vh-80px)] justify-center items-center px-4">
         <div className="w-full max-w-7xl bg-white rounded-2xl shadow-2xl p-45">
           <div className="flex flex-col items-center mb-12">
@@ -41,6 +67,12 @@ const SignUp = () => {
               Create New Account
             </h1>
           </div>
+
+          {error && (
+            <div className="mb-6 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-8">
             <div className="relative">
@@ -66,6 +98,7 @@ const SignUp = () => {
                 value={formData.password}
                 onChange={handleChange}
                 required
+                minLength={6}
                 className="w-full rounded-full bg-gray-100 py-5 pl-14 pr-14
                   focus:outline-none focus:ring-2 focus:ring-teal text-lg"
               />
@@ -99,10 +132,12 @@ const SignUp = () => {
 
             <button
               type="submit"
+              disabled={loading}
               className="mt-6 bg-teal text-white font-bold tracking-wider
-                py-5 text-xl rounded-full hover:opacity-90 transition"
+                py-5 text-xl rounded-full hover:opacity-90 transition
+                disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Sign Up
+              {loading ? "Signing up..." : "Sign Up"}
             </button>
           </form>
 

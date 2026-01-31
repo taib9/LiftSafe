@@ -15,15 +15,15 @@ const Landing = () => {
       <div className="container mx-auto flex flex-col items-center gap-10 py-4 lg:flex-row lg:justify-between">
         <img src={navLogo} />
         <div className="flex items-center gap-4">
-          <a href="" className="text-teal font-bold">
+          <Link to="/signin" className="text-teal font-bold">
             Login
-          </a>
-          <a
-            href=""
+          </Link>
+          <Link
+            to="/signup"
             className="bg-teal font-bold tracking-wider text-white px-8 py-2 items-center flex rounded-full"
           >
             Sign Up
-          </a>
+          </Link>
         </div>
       </div>
       <div className="container mx-auto mt-8 flex flex-col items-center gap-10 px-4 lg:flex-row lg:items-center lg:justify-between">
