@@ -49,7 +49,7 @@ const Landing = () => {
         />
       </div>
       <div className="bg-teal pb-8">
-        <div className="container px-4 mx-auto mt-16 flex flex-col gap-8 py-16 lg:py-0 items-stretch lg:mt-[8rem] lg:grid lg:grid-cols-3 ">
+        <div className="container px-4 mx-auto mt-16 flex flex-col gap-8 py-16 lg:py-0 items-stretch auto-rows-fr lg:mt-[8rem] lg:grid lg:grid-cols-3 ">
           <LandingCard
             title="Pain Selection"
             description="Select which body parts are troubling for you. This will help tailor the app to work best for you."

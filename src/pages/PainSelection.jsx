@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import PainSelectionCard from "../components/PainSelectionCard";
-import { GiKneeCap } from "react-icons/gi";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
 
 const PainSelection = () => {
   const [painAreas, setPainAreas] = useState([]);
-  const [activeCards, setActiveCards] = useState([]);
+  const [activeCard, setActiveCard] = useState(null);
 
   useEffect(() => {
     const fetchPainAreas = async () => {
@@ -18,16 +17,14 @@ const PainSelection = () => {
       if (error) {
         console.log("Supabase error:", error)
       } else {
-        setPainAreas(data)
+        setPainAreas(data ?? [])
       }
     };
     fetchPainAreas()
   }, [])
 
   const toggleCard = (id) => {
-    setActiveCards((prev) =>
-      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
-    );
+    setActiveCard((prev)  => (prev === id ? null : id))
   };
 
   return (
@@ -54,7 +51,7 @@ const PainSelection = () => {
               title={area.name}
               description={area.description}
               iconUrl={area.icon}
-              isActive={activeCards.includes(area.id)}
+              isActive={activeCard === area.id}
               onToggle={() => toggleCard(area.id)}
             />
           ))}
