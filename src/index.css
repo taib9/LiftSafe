@@ -3,4 +3,8 @@
 @theme {
   --color-teal: #3C6D71;
   --color-light-gray: #f3f3f3;
+  --color-lighter-gray: #F5F5F5;
+  --color-green: #62CB66;
+  --color-red: #D00000;
+  --color-orange: #FF8F34;
 }
