@@ -5,27 +5,15 @@ import ActionCard from "../components/ActionCard";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 
-const actionCard = [
-  {
-    id: "Immediate Action",
-    title: "Moderate Discomfort",
-    description: "Pain Level: 5/10",
-  },
-  {
-    id: "Rapid-Volume-Increase",
-    title: "Rapid Volume Increase",
-    description: "Training Load Increased Significantly",
-  },
-];
-
 const sleep = 6; // 0 - 10
-const pain = 5; // 0 - 10
-const volume = 3; // 0 - 100%
+const pain = 4; // 0 - 10
+const volume = 5; // 0 - 100%
 const frequency = 7; // 0 - 7
-const area = "f6317130-6577-4a08-bb88-0fae64fb0e2c"
+const area = "00cf7f1c-a043-4d60-b3db-8418e8f3df4c";
 
 const Results = () => {
   const [actions, setActions] = useState([]);
+  const [areaName, setAreaName] = useState("");
 
   let riskScore = 0;
   const keyFactors = [];
@@ -89,19 +77,41 @@ const Results = () => {
     riskLevel = "Yellow";
   }
 
+  if (riskLevel === "Green" && keyFactors.length === 0) {
+    keyFactors.push({
+      id: "overall-good",
+      label: "Overall good recovery status",
+      detail: "Your metrics indicate healthy training practices",
+      type: "positive",
+    });
+  }
+
   useEffect(() => {
     const fetchActions = async () => {
       const { data, error } = await supabase
         .from("recommendations")
-        .select("*")
-        .eq("risk_level", riskLevel)
-        .eq("pain_area_id", area);
-
+        .select(
+          `
+        id,
+        risk_level,
+        recommendation_type,
+        tip,
+        pain_area_id (
+          id,
+          name
+        )
+      `,
+        )
+        .eq("pain_area_id", area)
+        .eq("risk_level", riskLevel);
 
       if (error) {
         console.log("Supabase error:", error);
       } else {
         setActions(data ?? []);
+        if (data && data.length > 0 && data[0].pain_area_id) {
+          setAreaName(data[0].pain_area_id.name);
+        }
       }
     };
     fetchActions();
@@ -119,7 +129,7 @@ const Results = () => {
       </div>
       <div className="container mx-auto mt-4 flex flex-col items-center">
         <h2 className="text-white bg-teal font-bold px-4 py-2 rounded-full">
-          Hip
+          {areaName}
         </h2>
         <h1 className="text-2xl lg:text-[2rem] text-teal text-center font-bold">
           Your Recovery Assessment
