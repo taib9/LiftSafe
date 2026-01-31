@@ -4,6 +4,7 @@ import PainSelection from "./pages/PainSelection";
 import Results from "./pages/Results";
 import PainQuestionsPage from "./pages/PainQuestionsPage";
 import SignUp from "./pages/SignUp";
+import SignIn from "./pages/SignIn";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/results" element={<Results />} />
       <Route path="/questions/:painAreaId" element={<PainQuestionsPage />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/signin" element={<SignIn />} />
     </Routes>
   )
 }

@@ -8,7 +8,7 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 
-const SignUp = () => {
+const SignIn = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -38,7 +38,7 @@ const SignUp = () => {
           <div className="flex flex-col items-center mb-12">
             <img src={navLogo} alt="LiftSafe Logo" className="h-12 mb-6" />
             <h1 className="text-5xl font-bold text-teal text-center">
-              Create New Account
+              Welcome Back!
             </h1>
           </div>
 
@@ -102,14 +102,14 @@ const SignUp = () => {
               className="mt-6 bg-teal text-white font-bold tracking-wider
                 py-5 text-xl rounded-full hover:opacity-90 transition"
             >
-              Sign Up
+              Sign In
             </button>
           </form>
 
           <p className="text-center text-lg mt-10 text-gray-500">
-            Already have an account?{" "}
-            <Link to="/signin" className="text-teal font-bold">
-              Login
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-teal font-bold">
+              Sign Up
             </Link>
           </p>
         </div>
@@ -118,4 +118,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default SignIn;
