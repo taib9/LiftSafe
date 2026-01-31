@@ -113,7 +113,7 @@ const PainQuestionsPage = () => {
               </Slider.Track>
               <Slider.Thumb className="relative block w-5 h-5 bg-teal border-gray-400 rounded-full shadow">
                 {answers[index] !== null && (
-                  <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-teal text-white px-2 py-1 rounded text-xs whitespace-nowrap">
+                  <span className="absolute -top-7 left-1/2 -translate-x-1/2 bg-teal text-white px-2 py-1 rounded text-xs whitespace-nowrap">
                     {answers[index]}
                   </span>
                 )}
